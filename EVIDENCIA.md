@@ -28,7 +28,7 @@ Al depurar la clase `TaskListActivity`, se identificó que la actividad no se en
 
 * **Evidencia del error:**
 
-  ![Error 1](evidencia/error1)
+  ![Error 1](evidencias/error1)
 
 * **Solución:**
 
@@ -53,7 +53,7 @@ Se identificó un error en la asignación del valor de fecha al componente `tvDu
 
 * **Evidencia del error:**
 
-  ![Error 2](evidencia/error2)
+  ![Error 2](evidencias/error2)
 
 * **Solución:**
 
@@ -65,7 +65,7 @@ Se detectó que la variable `pattern`, definida para establecer el formato de fe
 
 * **Evidencia del error:**
 
-  ![Error 2.1](evidencia/error2.1)
+  ![Error 2.1](evidencias/error2.1)
 
 * **Solución:**
 
@@ -77,7 +77,7 @@ Se identificó que la fecha mostraba incorrectamente el mes, ya que enero aparec
 
 * **Evidencia del error:**
 
-  ![Error 2.2](evidencia/error2.2)
+  ![Error 2.2](evidencias/error2.2)
 
 * **Solución:**
 
@@ -122,7 +122,7 @@ Esta condición provocaba un desplazamiento en la selección de los elementos de
 
 * **Evidencia del error:**
 
-  ![Error 3](evidencia/error3)
+  ![Error 3](evidencias/error3)
 
 * **Solución:**
 
@@ -151,7 +151,7 @@ util.openActivity(
 
 * **Evidencia del error:**
 
-  ![Error 4](evidencia/error4)
+  ![Error 4](evidencias/error4)
 
 * **Solución:**
 
@@ -165,22 +165,10 @@ Se identificó que la variable `cleanScreen` permanecía en `true` después de e
 
 * **Evidencia del error:**
 
-  ![Error 5](evidencia/error5)
+  ![Error 5](evidencias/error5)
 
 * **Solución:**
 
   Se modificó el valor de la variable `cleanScreen` a `false`, permitiendo restablecer el estado de la pantalla y ejecutar correctamente las validaciones correspondientes.
 
 ˙ . ꒷🪼 . 𖦹˙— ⊹ ࣪˖᯽݁˖· ‎ꫂ᭪݁ ·˖݁᯽˖࣪ ⊹ 𓆝 ˚₊·—̳͟͞͞♡ ━━━━━━━━━━━⋆｡𖦹°‧🫧⋆.r𖦹*:･
-
-### 6. Implementación de un diálogo de confirmación para actualizar o eliminar tareas
-
-Se identificó la necesidad de incorporar un diálogo de confirmación en la pantalla de detalles de una tarea (`Task`). Este debe mostrarse cuando el usuario intente actualizar o eliminar un registro, con el propósito de solicitar una confirmación antes de ejecutar la operación correspondiente.
-
-* **Evidencia de la implementación:**
-
-  ![Error 6](evidencia/error6)
-
-* **Solución:**
-
-  Se debe implementar un `AlertDialog` que presente una pregunta de confirmación al usuario antes de ejecutar las operaciones de actualización o eliminación de una tarea.
