@@ -40,7 +40,7 @@ class TaskActivity : AppCompatActivity(),
     private lateinit var txtObservation: EditText
     private lateinit var tvDueDate: TextView
     private var dueDay: Int=0
-    private var dueMonth: Int=0
+    private var dueMonth: Int=1
     private var dueYear: Int=0
     private var isEditMode: Boolean=false
     private lateinit var menuDelete: MenuItem
@@ -91,7 +91,7 @@ class TaskActivity : AppCompatActivity(),
         dueMonth=month
         dueYear=year
         tvDueDate.text = getDateFormatString(dayOfMonth,
-             month, year)
+             month+1, year)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
