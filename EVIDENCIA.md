@@ -4,7 +4,7 @@
 
 En esta práctica de laboratorio se utiliza como base el proyecto **TaskManager**, una aplicación móvil orientada a la gestión de tareas personales. A partir de este proyecto, se ponen en práctica y fortalecen los conocimientos sobre depuración de código (*debugging*), arquitectura de software en Android (MVVM), desarrollo e interacción con interfaces de usuario (UI), así como la manipulación de colecciones y el filtrado de datos mediante Kotlin.
 
-˙ . ꒷🪼 . 𖦹˙— ⊹ ࣪˖᯽݁˖· ‎ꫂ᭪݁ ·˖݁᯽˖࣪ ⊹ 𓆝 ˚₊·—̳͟͞͞♡ ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━⋆｡𖦹°‧🫧⋆.ೃ࿔*:･
+˙ . ꒷🪼 . 𖦹˙— ⊹ ࣪˖᯽݁˖· ‎ꫂ᭪݁ ·˖݁᯽˖࣪ ⊹ 𓆝 ˚₊·—̳͟͞͞♡ ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━⋆｡𖦹°‧🫧⋆.ೃ࿔*:･
 
 ## Objetivos de aprendizaje
 
