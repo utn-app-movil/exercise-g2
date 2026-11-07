@@ -4,7 +4,7 @@
 
 En esta práctica de laboratorio se utiliza como base el proyecto **TaskManager**, una aplicación móvil orientada a la gestión de tareas personales. A partir de este proyecto, se ponen en práctica y fortalecen los conocimientos sobre depuración de código (*debugging*), arquitectura de software en Android (MVVM), desarrollo e interacción con interfaces de usuario (UI), así como la manipulación de colecciones y el filtrado de datos mediante Kotlin.
 
-˙ . ꒷🪼 . 𖦹˙— ⊹ ࣪˖᯽݁˖· ‎ꫂ᭪݁ ·˖݁᯽˖࣪ ⊹ 𓆝 ˚₊·—̳͟͞͞♡ ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━⋆｡𖦹°‧🫧⋆.ೃ࿔*:･
+˙ . ꒷🪼 . 𖦹˙— ⊹ ࣪˖᯽݁˖· ‎ꫂ᭪݁ ·˖݁᯽˖࣪ ⊹ 𓆝 ˚₊·—̳͟͞͞♡ ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━⋆｡𖦹°‧🫧⋆.ೃ࿔*:･
 
 ## Objetivos de aprendizaje
 
@@ -14,7 +14,7 @@ En esta práctica de laboratorio se utiliza como base el proyecto **TaskManager*
 
 3. **Manipulación de datos y colecciones:** Aplicar operaciones de transformación y filtrado dinámico sobre colecciones de Kotlin mediante funciones como `filter`, `count` y `map`.
 
-˙ . ꒷🪼 . 𖦹˙— ⊹ ࣪˖᯽݁˖· ‎ꫂ᭪݁ ·˖݁᯽˖࣪ ⊹ 𓆝 ˚₊·—̳͟͞͞♡ ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━⋆｡𖦹°‧🫧⋆.ೃ࿔*:･
+˙ . ꒷🪼 . 𖦹˙— ⊹ ࣪˖᯽݁˖· ‎ꫂ᭪݁ ·˖݁᯽˖࣪ ⊹ 𓆝 ˚₊·—̳͟͞͞♡ ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━⋆｡𖦹°‧🫧⋆.ೃ࿔*:･
 
 ## Fase 0: Identificación y corrección de errores intencionales (Debugging – 45 minutos)
 
@@ -45,7 +45,7 @@ Al depurar la clase `TaskListActivity`, se identificó que la actividad no se en
   </activity>
   ```
 
-˙ . ꒷🪼 . 𖦹˙— ⊹ ࣪˖᯽݁˖· ‎ꫂ᭪݁ ·˖݁᯽˖࣪ ⊹ 𓆝 ˚₊·—̳͟͞͞♡ ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━⋆｡𖦹°‧🫧⋆.ೃ࿔*:･
+˙ . ꒷🪼 . 𖦹˙— ⊹ ࣪˖᯽݁˖· ‎ꫂ᭪݁ ·˖݁᯽˖࣪ ⊹ 𓆝 ˚₊·—̳͟͞͞♡ ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━⋆｡𖦹°‧🫧⋆.ೃ࿔*:･
 
 ### 2. Declaración incorrecta de los parámetros en `onDateSet`
 
@@ -108,7 +108,7 @@ Se identificó que la fecha mostraba incorrectamente el mes, ya que enero aparec
   dueMonth = task.dueDate.monthValue - 1
   ```
 
-˙ . ꒷🪼 . 𖦹˙— ⊹ ࣪˖᯽݁˖· ‎ꫂ᭪݁ ·˖݁᯽˖࣪ ⊹ 𓆝 ˚₊·—̳͟͞͞♡ ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━⋆｡𖦹°‧🫧⋆.ೃ࿔*:･
+˙ . ꒷🪼 . 𖦹˙— ⊹ ࣪˖᯽݁˖· ‎ꫂ᭪݁ ·˖݁᯽˖࣪ ⊹ 𓆝 ˚₊·—̳͟͞͞♡ ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━⋆｡𖦹°‧🫧⋆.ೃ࿔*:･
 
 ### 3. Uso incorrecto de `position - 1` en `onBindViewHolder`
 
@@ -132,7 +132,7 @@ Esta condición provocaba un desplazamiento en la selección de los elementos de
   val item = tasks[position]
   ```
 
-˙ . ꒷🪼 . 𖦹˙— ⊹ ࣪˖᯽݁˖· ‎ꫂ᭪݁ ·˖݁᯽˖࣪ ⊹ 𓆝 ˚₊·—̳͟͞͞♡ ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━⋆｡𖦹°‧🫧⋆.ೃ࿔*:･
+˙ . ꒷🪼 . 𖦹˙— ⊹ ࣪˖᯽݁˖· ‎ꫂ᭪݁ ·˖݁᯽˖࣪ ⊹ 𓆝 ˚₊·—̳͟͞͞♡ ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━⋆｡𖦹°‧🫧⋆.ೃ࿔*:･
 
 ### 4. `onItemClick` envía el título en lugar del identificador de la tarea
 
@@ -157,7 +157,7 @@ util.openActivity(
 
   Se sustituyó `task.title` por `task.id`, garantizando que la actividad recibiera el identificador correcto para recuperar la información de la tarea seleccionada.
 
-˙ . ꒷🪼 . 𖦹˙— ⊹ ࣪˖᯽݁˖· ‎ꫂ᭪݁ ·˖݁᯽˖࣪ ⊹ 𓆝 ˚₊·—̳͟͞͞♡ ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━⋆｡𖦹°‧🫧⋆.ೃ࿔*:･
+˙ . ꒷🪼 . 𖦹˙— ⊹ ࣪˖᯽݁˖· ‎ꫂ᭪݁ ·˖݁᯽˖࣪ ⊹ 𓆝 ˚₊·—̳͟͞͞♡ ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━⋆｡𖦹°‧🫧⋆.ೃ࿔*:･
 
 ### 5. La pantalla permanece en modo edición después de guardar, cancelar o eliminar
 
@@ -171,4 +171,4 @@ Se identificó que la variable `cleanScreen` permanecía en `true` después de e
 
   Se modificó el valor de la variable `cleanScreen` a `false`, permitiendo restablecer el estado de la pantalla y ejecutar correctamente las validaciones correspondientes.
 
-˙ . ꒷🪼 . 𖦹˙— ⊹ ࣪˖᯽݁˖· ‎ꫂ᭪݁ ·˖݁᯽˖࣪ ⊹ 𓆝 ˚₊·—̳͟͞͞♡ ━━━━━━━━━━━⋆｡𖦹°‧🫧⋆.r𖦹*:･
+˙ . ꒷🪼 . 𖦹˙— ⊹ ࣪˖᯽݁˖· ‎ꫂ᭪݁ ·˖݁᯽˖࣪ ⊹ 𓆝 ˚₊·—̳͟͞͞♡ ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━⋆｡𖦹°‧🫧⋆.ೃ࿔*:･
