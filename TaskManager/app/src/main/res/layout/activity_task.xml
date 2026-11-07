@@ -170,7 +170,6 @@
                 android:inputType="textMultiLine"
                 android:text="" />
         </TableRow>
-
     </TableLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
