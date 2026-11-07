@@ -1,4 +1,4 @@
-# Resoluciion-practica-< nombre >.md
+# Resoluciion-practica-Minor.md
 
 ## Fase 0 - Debugging
 ### Error 1:
