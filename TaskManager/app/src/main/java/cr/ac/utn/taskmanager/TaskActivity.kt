@@ -29,7 +29,7 @@ import java.time.LocalDate
 import java.util.Calendar
 
 class TaskActivity : AppCompatActivity(),
-            DatePickerDialog.OnDateSetListener{
+    DatePickerDialog.OnDateSetListener{
 
     private lateinit var txtId: EditText
     private lateinit var txtTitle: EditText
@@ -86,12 +86,12 @@ class TaskActivity : AppCompatActivity(),
     }
 
     override fun onDateSet(view: android.widget.DatePicker?, year: Int
-                            , month: Int, dayOfMonth: Int) {
+                           , month: Int, dayOfMonth: Int) {
         dueDay=dayOfMonth
-        dueMonth=month
+        dueMonth=month +1
         dueYear=year
         tvDueDate.text = getDateFormatString(dayOfMonth,
-             month, year)
+            month +1, year)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -150,7 +150,7 @@ class TaskActivity : AppCompatActivity(),
 
     private fun showDatePickerDialog(){
         val datePickerDialog = DatePickerDialog(this,
-            this, dueYear, dueMonth, dueDay)
+            this, dueYear, dueMonth , dueDay)
         datePickerDialog.show()
     }
 
@@ -170,7 +170,7 @@ class TaskActivity : AppCompatActivity(),
                     task.dueDate.monthValue, task.dueDate.year)
                 tvDueDate.setText(dueDateStr)
                 dueDay = task.dueDate.dayOfMonth
-                dueMonth = task.dueDate.monthValue
+                dueMonth = task.dueDate.monthValue -1
                 dueYear = task.dueDate.year
                 invalidateOptionsMenu()
             }else{
