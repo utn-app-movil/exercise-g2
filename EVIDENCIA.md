@@ -53,7 +53,7 @@ Se identificó un error en la asignación del valor de fecha al componente `tvDu
 
 * **Evidencia del error:**
 
-  ![Error 2](evidencias/error2)
+  ![Error 2](evidencias/error2.png)
 
 * **Solución:**
 
@@ -65,7 +65,7 @@ Se detectó que la variable `pattern`, definida para establecer el formato de fe
 
 * **Evidencia del error:**
 
-  ![Error 2.1](evidencias/error2.1)
+  ![Error 2.1](evidencias/error2.1.png)
 
 * **Solución:**
 
@@ -77,7 +77,7 @@ Se identificó que la fecha mostraba incorrectamente el mes, ya que enero aparec
 
 * **Evidencia del error:**
 
-  ![Error 2.2](evidencias/error2.2)
+  ![Error 2.2](evidencias/error2.2.png)
 
 * **Solución:**
 
@@ -122,7 +122,7 @@ Esta condición provocaba un desplazamiento en la selección de los elementos de
 
 * **Evidencia del error:**
 
-  ![Error 3](evidencias/error3)
+  ![Error 3](evidencias/error3.png)
 
 * **Solución:**
 
@@ -151,7 +151,7 @@ util.openActivity(
 
 * **Evidencia del error:**
 
-  ![Error 4](evidencias/error4)
+  ![Error 4](evidencias/error4.png)
 
 * **Solución:**
 
@@ -165,7 +165,7 @@ Se identificó que la variable `cleanScreen` permanecía en `true` después de e
 
 * **Evidencia del error:**
 
-  ![Error 5](evidencias/error5)
+  ![Error 5](evidencias/error5.png)
 
 * **Solución:**
 
