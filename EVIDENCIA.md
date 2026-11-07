@@ -28,7 +28,7 @@ Al depurar la clase `TaskListActivity`, se identificó que la actividad no se en
 
 * **Evidencia del error:**
 
-  ![Error 1](exercise-g2/blob/Gavreel/evidencias/error1.png)
+  ![Error 1](/exercise-g2/blob/Gavreel/evidencias/error1.png)
 
 * **Solución:**
 
