@@ -32,4 +32,21 @@
     <string name="TextNo">No</string>
     <string name="TextDataNoFound">The information was not found.</string>
     <string name="TextTitleDialogQuestion">Question</string>
+    <string name="btnTextTaskStats_main">Task Statistics</string>
+    <string name="TextStatsTitle">Task statistics</string>
+    <string name="TextTotalTasks">Total tasks: %1$d</string>
+    <string name="TextPendingTasks">Pending: %1$d</string>
+    <string name="TextProgressTasks">In progress: %1$d</string>
+    <string name="TextCompletedTasks">Completed: %1$d</string>
+    <string name="TextCancelledTasks">Cancelled: %1$d</string>
+    <string name="TextCompletedPercentage">Completed: %1$d%%</string>
+    <string name="TextBackToMain">Back to main menu</string>
+    <string name="TextSearchTasks">Search tasks</string>
+    <string-array name="TaskStatusFilter">
+        <item>ALL</item>
+        <item>PENDING</item>
+        <item>IN_PROGRESS</item>
+        <item>COMPLETED</item>
+        <item>CANCELLED</item>
+    </string-array>
 </resources>
