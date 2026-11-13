@@ -8,6 +8,7 @@
     <string name="TextSnackbar">Deshacer</string>
     <string name="btnTextTask_main">Gestión de Tareas</string>
     <string name="btnTextTaskList_main">Listar tareas</string>
+    <string name="btnTextTaskStats_main">Estadísticas de tareas</string>
     <string name="TextId">Id</string>
     <string name="TextTitle">Título de tarea</string>
     <string name="TextDescription">Descripción</string>
@@ -30,6 +31,13 @@
     <string name="TextNo">No</string>
     <string name="TextDataNoFound">La información no existe.</string>
     <string name="TextTitleDialogQuestion">Pregunta</string>
+    <string name="TextTotalTasks">Total de tareas registradas</string>
+    <string name="TextPending">Pendientes</string>
+    <string name="TextInProgress">En progreso</string>
+    <string name="TextCompleted">Completadas</string>
+    <string name="TextCancelled">Canceladas</string>
+    <string name="TextCompletedPercent">Porcentaje completado</string>
+    <string name="btnTextBack_Stats">Volver al menú principal</string>
 
 
 </resources>
