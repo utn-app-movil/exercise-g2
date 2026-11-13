@@ -14,13 +14,14 @@ En el método `onDateSet` se agregó `+ 1` al valor del mes (`monthValue`), ya q
 
 ![Error 2](Evidencias/Picture2.png)
 
-Cambio en el método: <br>
+**Cambio en el método:** <br>
 ![Error 3](Evidencias/Picture3.png)
 
-Antes: <br>
+***Antes:*** <br>
 ![Error 4](Evidencias/Picture4.png)
 
-Después: <br>
+
+*Después:* <br>
 ![Error 5](Evidencias/Picture5.png)
 ---
 
@@ -30,8 +31,14 @@ Se identificó una inconsistencia en el formato utilizado para almacenar la info
 Se corrigió el patrón en `util.kt` para que coincidiera con el utilizado en `TaskActivity`, manteniendo un mismo formato en ambos archivos.
 
 **Evidencia:**
+**En TaskActivity está de esta forma:** <br>
+![Error 6](Evidencias/Picture6.png)
 
+**Y en Util de esta forma:** <br>
+![Error 7](Evidencias/Picture7.png)
 
+**Se corrigió por el patrón, para que copie el mismo de TaskActivity.** <br>
+![Error 8](Evidencias/Picture8.png)
 ---
 
 ## 3. Error en la visualización de tareas duplicadas
