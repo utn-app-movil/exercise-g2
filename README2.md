@@ -1,5 +1,5 @@
 # Fase 0: Documentación de la solución de errores intencionales (Debugging)
-Fase de solución de los errores intencionales, se identificaron y corrigieron en el proyecto.
+Fase de solución de los errores intencionales, se identificaron y corrigieron en el proyecto. 
 
 ---
 
@@ -13,6 +13,15 @@ En el método `onDateSet` se agregó `+ 1` al valor del mes (`monthValue`), ya q
 
 
 ![Error 2](Evidencias/Picture2.png)
+
+Cambio en el método: <br>
+![Error 3](Evidencias/Picture3.png)
+
+Antes: <br>
+![Error 4](Evidencias/Picture4.png)
+
+Después: <br>
+![Error 5](Evidencias/Picture5.png)
 ---
 
 ## 2. Formateo incorrecto en el código de almacenamiento
