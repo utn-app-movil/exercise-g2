@@ -1,5 +1,4 @@
 # Fase 0: Documentación de la solución de errores intencionales (Debugging)
-> > > ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ ★
 Fase de solución de los errores intencionales, se identificaron y corrigieron en el proyecto.
 
 ---
