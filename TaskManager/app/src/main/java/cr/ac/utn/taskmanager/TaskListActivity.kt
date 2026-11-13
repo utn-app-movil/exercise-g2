@@ -14,6 +14,7 @@ import cr.ac.utn.taskmanager.util.util
 import cr.ac.utn.taskmanager.viewmodel.TaskViewModel
 
 class TaskListActivity : AppCompatActivity(), OnItemClickListener {
+    private lateinit var taskAdapter: TaskListAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,11 +27,16 @@ class TaskListActivity : AppCompatActivity(), OnItemClickListener {
         }
 
         val recycler= findViewById<RecyclerView>(R.id.rvTasks_List)
-        val taskAdapter = TaskListAdapter(TaskViewModel.getTasks(),
+        taskAdapter = TaskListAdapter(TaskViewModel.getTasks(),
             this)
         val layoutManager = LinearLayoutManager(applicationContext)
         recycler.layoutManager = layoutManager
         recycler.adapter = taskAdapter
+    }
+
+    override fun onResume() {
+        super.onResume()
+        taskAdapter.notifyDataSetChanged()
     }
 
     override fun onItemClick(task: Task) {
