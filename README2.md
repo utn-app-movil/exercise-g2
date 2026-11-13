@@ -9,9 +9,10 @@ Al seleccionar una fecha, el mes mostrado no correspondía con el mes selecciona
 En el método `onDateSet` se agregó `+ 1` al valor del mes (`monthValue`), ya que el formato lo evaluaba con un numero menos, haciendo que se mostrara un mes erróneo al elegido.
 
 **Evidencia:**
-Error con el Mes mostrado:
 ![Error 1](Evidencias/Picture1.png)
 
+
+![Error 2](Evidencias/Picture2.png)
 ---
 
 ## 2. Formateo incorrecto en el código de almacenamiento
