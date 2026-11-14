@@ -41,6 +41,13 @@ class TaskViewModel: ViewModel() {
             return repository.getTasks().filter { it.status == status }.count()
         }
 
+        fun filterTasks(searchText: String, status: TaskStatus?): List<Task>{
+            return repository.getTasks().filter {
+                it.title.contains(searchText, ignoreCase = true)
+                && (status == null || it.status == status)
+            }
+        }
+
         fun getCompletedPercentage(): Int{
             val total = getTotalTasks()
             if (total == 0)

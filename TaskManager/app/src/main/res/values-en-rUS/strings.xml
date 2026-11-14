@@ -40,4 +40,6 @@
     <string name="TextCancelled">Cancelled</string>
     <string name="TextCompletedPercent">Completed percentage</string>
     <string name="btnTextBack_Stats">Back to main menu</string>
+    <string name="TextSearch">Search</string>
+    <string name="TextAll">ALL</string>
 </resources>
