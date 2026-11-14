@@ -217,8 +217,8 @@ class TaskActivity : AppCompatActivity(),
     fun saveTask(){
         try {
             if (isValidationData()){
-                val task = TaskViewModel.getTaskById(txtId.text.toString().trim())
-                if (task != null
+                val existingTask  = TaskViewModel.getTaskById(txtId.text.toString().trim())
+                if (existingTask  != null
                     && !isEditMode){
                     Toast.makeText(this, getString(R.string.TextDuplicateData)
                         , Toast.LENGTH_LONG).show()
@@ -232,7 +232,7 @@ class TaskActivity : AppCompatActivity(),
                         txtDescription.text.toString().trim(),
                         LocalDate.of(dueDate?.year!!, dueDate?.month!!
                             , dueDate?.dayOfMonth!!),
-                        LocalDate.now(),
+                        creationDate = existingTask?.creationDate ?: LocalDate.now(),
                         selectedStatus,
                         txtAssignTo.text.toString().trim(),
                         selectedPriority,
