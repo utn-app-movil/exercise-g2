@@ -9,14 +9,14 @@ import androidx.recyclerview.widget.RecyclerView
 import cr.ac.utn.taskmanager.domain.model.Task
 
 class TaskListAdapter (private var tasks: List<Task>,
-                        val itemClickListener: OnItemClickListener):
-                    RecyclerView.Adapter<CustomViewHolder>()
+                       val itemClickListener: OnItemClickListener):
+    RecyclerView.Adapter<CustomViewHolder>()
 {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int):
             CustomViewHolder {
         val itemView = LayoutInflater.from(parent.context).
-                inflate(R.layout.activity_task_item,
-                        parent, false)
+        inflate(R.layout.activity_task_item,
+            parent, false)
         return CustomViewHolder(itemView)
     }
 
@@ -27,6 +27,20 @@ class TaskListAdapter (private var tasks: List<Task>,
 
     override fun getItemCount(): Int {
         return tasks.size
+    }
+
+    fun updateTasks(newTasks: List<Task>) {
+        tasks = newTasks
+        notifyDataSetChanged()
+    }
+
+    fun getTaskAt(position: Int): Task {
+        return tasks[position]
+    }
+
+    fun removeAt(position: Int) {
+        tasks = tasks.toMutableList().apply { removeAt(position) }
+        notifyItemRemoved(position)
     }
 }
 

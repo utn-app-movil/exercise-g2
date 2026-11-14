@@ -10,18 +10,22 @@ class TaskMemoryManager: ITaskRepository {
     }
 
     override fun deleteTask(id: String) {
-        tasks.removeIf { it.id == id }
+        tasks.removeIf { it.id.trim() == id.trim() }
+    }
+
+    override fun addTaskAt(task: Task, index: Int) {
+        tasks.add(index.coerceIn(0, tasks.size), task)
     }
 
     override fun updateTask(task: Task) {
-        deleteTask(task.id)
-        addTask(task)
+        val index = tasks.indexOfFirst { it.id == task.id }
+        if (index >= 0) tasks[index] = task else tasks.add(task)
     }
 
     override fun getTasks() = tasks
 
     override fun getById(id: String): Task? {
-        val result = tasks.filter { it.id == id }
+        val result = tasks.filter { it.id.trim() == id.trim() }
         return if(result.any()) result[0] else null
     }
 }
