@@ -24,7 +24,7 @@
     <string name="TextDeleteSuccess">Information was deleted successfully</string>
     <string name="TextDuplicateData">The information is already stored.</string>
     <string name="TextSaveError">Error to save the information.</string>
-
+    <string name="TextActionCancelled">Cancelled action</string>
     <string name="TextDeleteError">Error to delete the information.</string>
     <string name="TextSaveQuestion">Do you want to save the information.</string>
     <string name="TextDeleteQuestion">Do you want to delete the information.</string>
