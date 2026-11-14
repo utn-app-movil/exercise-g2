@@ -106,11 +106,25 @@ class TaskActivity : AppCompatActivity(),
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.mnuSave -> {
-                saveTask()
+                if (isEditMode) {
+                    util.showDialogCondition(
+                        this,
+                        getString(R.string.TextConfirmUpdate)
+                    ) {
+                        saveTask()
+                    }
+                } else {
+                    saveTask()
+                }
                 return true
             }
             R.id.mnuDelete -> {
-                deleteTask()
+                util.showDialogCondition(
+                    this,
+                    getString(R.string.TextConfirmDelete)
+                ) {
+                    deleteTask()
+                }
                 return true
             }
             R.id.mnuCancel -> {
@@ -122,7 +136,7 @@ class TaskActivity : AppCompatActivity(),
     }
 
     private fun setupSpinners() {
-        // Adaptador para TaskStatus
+
         val statusAdapter = ArrayAdapter(
             this,
             android.R.layout.simple_spinner_item,
@@ -131,7 +145,7 @@ class TaskActivity : AppCompatActivity(),
         statusAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         spStatus.adapter = statusAdapter
 
-        // Adaptador para TaskPriority
+
         val priorityAdapter = ArrayAdapter(
             this,
             android.R.layout.simple_spinner_item,
@@ -190,7 +204,7 @@ class TaskActivity : AppCompatActivity(),
 
     private fun cleanScreen(){
         resetDate()
-        isEditMode=true
+        isEditMode=false
         txtId.isEnabled = true
         txtId.setText("")
         txtTitle.setText("")
