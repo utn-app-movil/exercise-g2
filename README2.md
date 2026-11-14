@@ -80,3 +80,17 @@ Después: <br>
 ![Error 16](Evidencias/Picture16.png)
 
 ---
+
+## 5. Sobreescribe al editar la fecha
+La tarea se crea con `LocalDate.now()` como `creationDate`, al editar y el `updateTask` elimina y agregar, así que la tarea editada pasa al final de la lista.
+
+**Evidencia:** 
+Así se ve en el método `saveTask`: <br>
+![Error 17](Evidencias/Picture17.png)
+
+Para la solución, se cambió el nombre de val a `existingTask` y se hizo el cambio del `existingTask?.creationDate` para la búsqueda de la tarea que ya estaba guardada y toma su fecha de creación original sino en `LocalDate.now()` si no existía esa tarea, usa la fecha de hoy.
+
+Muestra del cambio: <br>
+![Error 18](Evidencias/Picture18.png)
+
+![Error 19](Evidencias/Picture19.png)
