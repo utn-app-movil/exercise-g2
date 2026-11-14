@@ -29,7 +29,7 @@ import java.time.LocalDate
 import java.util.Calendar
 
 class TaskActivity : AppCompatActivity(),
-            DatePickerDialog.OnDateSetListener{
+    DatePickerDialog.OnDateSetListener{
 
     private lateinit var txtId: EditText
     private lateinit var txtTitle: EditText
@@ -86,12 +86,12 @@ class TaskActivity : AppCompatActivity(),
     }
 
     override fun onDateSet(view: android.widget.DatePicker?, year: Int
-                            , month: Int, dayOfMonth: Int) {
+                           , month: Int, dayOfMonth: Int) {
         dueDay=dayOfMonth
-        dueMonth=month
+        dueMonth=month +1
         dueYear=year
         tvDueDate.text = getDateFormatString(dayOfMonth,
-             month, year)
+            month +1, year)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -106,11 +106,25 @@ class TaskActivity : AppCompatActivity(),
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.mnuSave -> {
-                saveTask()
+                if (isEditMode) {
+                    util.showDialogCondition(
+                        this,
+                        getString(R.string.TextConfirmUpdate)
+                    ) {
+                        saveTask()
+                    }
+                } else {
+                    saveTask()
+                }
                 return true
             }
             R.id.mnuDelete -> {
-                deleteTask()
+                util.showDialogCondition(
+                    this,
+                    getString(R.string.TextConfirmDelete)
+                ) {
+                    deleteTask()
+                }
                 return true
             }
             R.id.mnuCancel -> {
@@ -122,7 +136,7 @@ class TaskActivity : AppCompatActivity(),
     }
 
     private fun setupSpinners() {
-        // Adaptador para TaskStatus
+
         val statusAdapter = ArrayAdapter(
             this,
             android.R.layout.simple_spinner_item,
@@ -131,7 +145,7 @@ class TaskActivity : AppCompatActivity(),
         statusAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         spStatus.adapter = statusAdapter
 
-        // Adaptador para TaskPriority
+
         val priorityAdapter = ArrayAdapter(
             this,
             android.R.layout.simple_spinner_item,
@@ -150,7 +164,7 @@ class TaskActivity : AppCompatActivity(),
 
     private fun showDatePickerDialog(){
         val datePickerDialog = DatePickerDialog(this,
-            this, dueYear, dueMonth, dueDay)
+            this, dueYear, dueMonth , dueDay)
         datePickerDialog.show()
     }
 
@@ -170,7 +184,7 @@ class TaskActivity : AppCompatActivity(),
                     task.dueDate.monthValue, task.dueDate.year)
                 tvDueDate.setText(dueDateStr)
                 dueDay = task.dueDate.dayOfMonth
-                dueMonth = task.dueDate.monthValue
+                dueMonth = task.dueDate.monthValue -1
                 dueYear = task.dueDate.year
                 invalidateOptionsMenu()
             }else{
@@ -190,7 +204,7 @@ class TaskActivity : AppCompatActivity(),
 
     private fun cleanScreen(){
         resetDate()
-        isEditMode=true
+        isEditMode=false
         txtId.isEnabled = true
         txtId.setText("")
         txtTitle.setText("")
