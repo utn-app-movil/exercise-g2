@@ -6,6 +6,8 @@ interface ITaskRepository {
     fun getTasks(): List<Task>
     fun getById(id: String): Task?
     fun addTask(task: Task)
+
+    fun addTaskAt(task: Task, index: Int)
     fun updateTask(task: Task)
     fun deleteTask(id: String)
 }
