@@ -81,7 +81,7 @@ Después: <br>
 
 ---
 
-## 5. Sobreescribe al editar la fecha
+## 5. Sobreescribe la fecha al editarla
 La tarea se crea con `LocalDate.now()` como `creationDate`, al editar y el `updateTask` elimina y agregar, así que la tarea editada pasa al final de la lista.
 
 **Evidencia:** 
