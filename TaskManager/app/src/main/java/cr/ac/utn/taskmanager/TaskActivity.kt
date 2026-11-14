@@ -43,7 +43,6 @@ class TaskActivity : AppCompatActivity(),
     private var dueMonth: Int=0
     private var dueYear: Int=0
     private var isEditMode: Boolean=false
-    private lateinit var menuDelete: MenuItem
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -91,26 +90,32 @@ class TaskActivity : AppCompatActivity(),
         dueMonth=month
         dueYear=year
         tvDueDate.text = getDateFormatString(dayOfMonth,
-             month, year)
+            month + 1, year)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         val inflater: MenuInflater = menuInflater
         inflater.inflate(R.menu.crud_actions, menu)
-        menuDelete = menu!!.findItem(R.id.mnuDelete)
-        menuDelete.isVisible = isEditMode
-        invalidateOptionsMenu()
         return true
+    }
+    override fun onPrepareOptionsMenu(menu: Menu?): Boolean {
+        menu?.findItem(R.id.mnuDelete)?.isVisible = isEditMode
+        return super.onPrepareOptionsMenu(menu)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.mnuSave -> {
-                saveTask()
+                if (isEditMode) {
+                    util.showDialogCondition(this, getString(R.string.TextSaveQuestion)) { saveTask() }
+                } else {
+                    saveTask()
+                }
                 return true
             }
             R.id.mnuDelete -> {
-                deleteTask()
+                util.showDialogCondition(this, getString
+                    (R.string.TextDeleteQuestion)) { deleteTask() }
                 return true
             }
             R.id.mnuCancel -> {
@@ -170,7 +175,7 @@ class TaskActivity : AppCompatActivity(),
                     task.dueDate.monthValue, task.dueDate.year)
                 tvDueDate.setText(dueDateStr)
                 dueDay = task.dueDate.dayOfMonth
-                dueMonth = task.dueDate.monthValue
+                dueMonth = task.dueDate.monthValue - 1
                 dueYear = task.dueDate.year
                 invalidateOptionsMenu()
             }else{
@@ -190,7 +195,7 @@ class TaskActivity : AppCompatActivity(),
 
     private fun cleanScreen(){
         resetDate()
-        isEditMode=true
+        isEditMode=false
         txtId.isEnabled = true
         txtId.setText("")
         txtTitle.setText("")
@@ -217,14 +222,14 @@ class TaskActivity : AppCompatActivity(),
     fun saveTask(){
         try {
             if (isValidationData()){
-                val task = TaskViewModel.getTaskById(txtId.text.toString().trim())
-                if (task != null
+                val existing = TaskViewModel.getTaskById(txtId.text.toString().trim())
+                if (existing != null
                     && !isEditMode){
                     Toast.makeText(this, getString(R.string.TextDuplicateData)
                         , Toast.LENGTH_LONG).show()
                 }else{
                     val dueDate = util.parseStringToDateModern(tvDueDate.text.toString(),
-                        "dd/MM/yyyy")
+                        "dd/MM/yyyy") ?: throw IllegalArgumentException("Fecha inválida")
                     val selectedStatus = spStatus.selectedItem as TaskStatus
                     val selectedPriority = spPriority.selectedItem as TaskPriority
                     val task = Task(txtId.text.toString().trim(),
@@ -232,7 +237,7 @@ class TaskActivity : AppCompatActivity(),
                         txtDescription.text.toString().trim(),
                         LocalDate.of(dueDate?.year!!, dueDate?.month!!
                             , dueDate?.dayOfMonth!!),
-                        LocalDate.now(),
+                        existing?.creationDate ?: LocalDate.now(),
                         selectedStatus,
                         txtAssignTo.text.toString().trim(),
                         selectedPriority,
@@ -249,24 +254,29 @@ class TaskActivity : AppCompatActivity(),
                         , Toast.LENGTH_LONG).show()
                 }
             }else{
-                Toast.makeText(this, "Datos incompletos"
-                    , Toast.LENGTH_LONG).show()
+                Toast.makeText(this, getString(R.string.TextIncompleteData),
+                    Toast.LENGTH_LONG).show()
             }
         }catch (e: Exception){
-            Toast.makeText(this, e.message.toString()
-                , Toast.LENGTH_LONG).show()
+            Toast.makeText(this, e.message ?: getString(R.string.TextSaveError),
+                Toast.LENGTH_LONG).show()
         }
     }
 
     fun deleteTask(): Unit{
         try {
-            TaskViewModel.removeTask(txtId.text.toString())
+            val id = txtId.text.toString().trim()
+            if (id.isBlank() || TaskViewModel.getTaskById(id) == null) {
+                Toast.makeText(this, getString(R.string.TextDataNoFound), Toast.LENGTH_LONG).show()
+                return
+            }
+            TaskViewModel.removeTask(id)
             cleanScreen()
             Toast.makeText(this, getString(R.string.TextDeleteSuccess)
                 , Toast.LENGTH_LONG).show()
         }catch (e: Exception){
-            Toast.makeText(this, e.message.toString()
-                , Toast.LENGTH_LONG).show()
+            Toast.makeText(this, e.message ?: getString(R.string.TextDataNoFound),
+                Toast.LENGTH_LONG).show()
         }
     }
 }
