@@ -172,3 +172,129 @@ Se identificó que la variable `cleanScreen` permanecía en `true` después de e
   Se modificó el valor de la variable `cleanScreen` a `false`, permitiendo restablecer el estado de la pantalla y ejecutar correctamente las validaciones correspondientes.
 
 ˙ . ꒷🪼 . 𖦹˙— ⊹ ࣪˖᯽݁˖· ‎ꫂ᭪݁ ·˖݁᯽˖࣪ ⊹ 𓆝 ˚₊·—̳͟͞͞♡ ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━⋆｡𖦹°‧🫧⋆.ೃ࿔*:･
+
+### 6. `updateTask` elimina y vuelve a agregar la tarea, y `getTasks` expone la lista interna
+
+En `TaskMemoryManager.kt`, el método `updateTask` actualizaba una tarea borrándola y agregándola de nuevo:
+
+```kotlin
+override fun updateTask(task: Task) {
+    deleteTask(task.id)
+    addTask(task)
+}
+```
+
+Como consecuencia, la tarea editada pasaba al final de la lista y cambiaba el orden que veía el usuario. Además, `getTasks()` devolvía directamente la lista mutable interna (`override fun getTasks() = tasks`), de modo que cualquier clase podía modificar los datos del repositorio sin pasar por él.
+
+* **Evidencia del error:**
+
+  ![Error 6](evidencias/error6.png)
+
+* **Solución:**
+
+  Se reemplazó la tarea en su misma posición usando su índice:
+
+  ```kotlin
+  override fun updateTask(task: Task) {
+      val index = tasks.indexOfFirst { it.id == task.id }
+      if (index >= 0) tasks[index] = task else tasks.add(task)
+  }
+  ```
+
+  Además, `getTasks()` ahora devuelve una copia de solo lectura:
+
+  ```kotlin
+  override fun getTasks(): List<Task> = tasks.toList()
+  ```
+
+  Como `getTasks()` ya no devuelve la lista viva, `TaskListActivity` refresca la lista en `onResume()` con `applyFilters()`. Así se ven los cambios al volver de editar una tarea.
+
+˙ . ꒷🪼 . 𖦹˙— ⊹ ࣪˖᯽݁˖· ‎ꫂ᭪݁ ·˖݁᯽˖࣪ ⊹ 𓆝 ˚₊·—̳͟͞͞♡ ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━⋆｡𖦹°‧🫧⋆.ೃ࿔*:･
+
+### 7. `invalidateOptionsMenu()` dentro de `onCreateOptionsMenu`
+
+En `TaskActivity.kt`, el método `onCreateOptionsMenu` llamaba a `invalidateOptionsMenu()` mientras construía el menú:
+
+```kotlin
+override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+    val inflater: MenuInflater = menuInflater
+    inflater.inflate(R.menu.crud_actions, menu)
+    menuDelete = menu!!.findItem(R.id.mnuDelete)
+    menuDelete.isVisible = isEditMode
+    invalidateOptionsMenu()
+    return true
+}
+```
+
+`invalidateOptionsMenu()` le pide a Android que reconstruya el menú, y reconstruirlo vuelve a llamar a `onCreateOptionsMenu`. Eso provoca un ciclo de reconstrucciones constantes. Además, el botón Eliminar quedaba atado a una variable `lateinit var menuDelete` que solo se inicializa dentro de ese método.
+
+* **Evidencia del error:**
+
+  ![Error 7](evidencias/error7.png)
+
+* **Solución:**
+
+  `onCreateOptionsMenu` ahora solo infla el menú:
+
+  ```kotlin
+  override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+      menuInflater.inflate(R.menu.crud_actions, menu)
+      return true
+  }
+  ```
+
+  La visibilidad del botón Eliminar pasó a `onPrepareOptionsMenu`, que Android llama cada vez que se invalida el menú:
+
+  ```kotlin
+  override fun onPrepareOptionsMenu(menu: Menu?): Boolean {
+      menu?.findItem(R.id.mnuDelete)?.isVisible = isEditMode
+      return super.onPrepareOptionsMenu(menu)
+  }
+  ```
+
+  Se eliminó la variable `lateinit var menuDelete`. Las llamadas a `invalidateOptionsMenu()` que ya existían en `searchTask()` y `cleanScreen()` siguen igual, y son las que activan `onPrepareOptionsMenu`.
+
+˙ . ꒷🪼 . 𖦹˙— ⊹ ࣪˖᯽݁˖· ‎ꫂ᭪݁ ·˖݁᯽˖࣪ ⊹ 𓆝 ˚₊·—̳͟͞͞♡ ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━⋆｡𖦹°‧🫧⋆.ೃ࿔*:･
+
+### 8. `deleteTask` no valida que la tarea exista
+
+En `TaskActivity.kt`, el método `deleteTask` eliminaba sin verificar nada:
+
+```kotlin
+fun deleteTask(): Unit {
+    try {
+        TaskViewModel.removeTask(txtId.text.toString())
+        cleanScreen()
+        Toast.makeText(this, getString(R.string.TextDeleteSuccess), Toast.LENGTH_LONG).show()
+    } catch (e: Exception) { ... }
+}
+```
+
+Si el Id estaba vacío o no existía, `removeTask` no hacía nada, pero la app igual mostraba "La información se eliminó con éxito". El usuario recibía un mensaje falso. Tampoco se hacía `trim()` al Id.
+
+* **Evidencia del error:**
+
+  ![Error 8](evidencias/error8.png)
+
+* **Solución:**
+
+  Se limpia el Id y se comprueba que la tarea exista antes de eliminar. Si no existe, se muestra "La información no existe" y se sale del método:
+
+  ```kotlin
+  fun deleteTask(): Unit {
+      try {
+          val id = txtId.text.toString().trim()
+          if (id.isBlank() || TaskViewModel.getTaskById(id) == null) {
+              Toast.makeText(this, getString(R.string.TextDataNoFound), Toast.LENGTH_LONG).show()
+              return
+          }
+          TaskViewModel.removeTask(id)
+          cleanScreen()
+          Toast.makeText(this, getString(R.string.TextDeleteSuccess), Toast.LENGTH_LONG).show()
+      } catch (e: Exception) {
+          Toast.makeText(this, e.message ?: getString(R.string.TextDataNoFound), Toast.LENGTH_LONG).show()
+      }
+  }
+  ```
+
+˙ . ꒷🪼 . 𖦹˙— ⊹ ࣪˖᯽݁˖· ‎ꫂ᭪݁ ·˖݁᯽˖࣪ ⊹ 𓆝 ˚₊·—̳͟͞͞♡ ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━⋆｡𖦹°‧🫧⋆.ೃ࿔*:･
