@@ -144,13 +144,13 @@ class TaskActivity : AppCompatActivity(),
     private fun resetDate(){
         val calendar = Calendar.getInstance()
         dueYear= calendar.get(Calendar.YEAR)
-        dueMonth= calendar.get(Calendar.MONTH)
+        dueMonth= calendar.get(Calendar.MONTH)+1
         dueDay= calendar.get(Calendar.DAY_OF_MONTH)
     }
 
     private fun showDatePickerDialog(){
         val datePickerDialog = DatePickerDialog(this,
-            this, dueYear, dueMonth, dueDay)
+            this, dueYear, dueMonth-1, dueDay)
         datePickerDialog.show()
     }
 
@@ -190,7 +190,7 @@ class TaskActivity : AppCompatActivity(),
 
     private fun cleanScreen(){
         resetDate()
-        isEditMode=true
+        isEditMode=false
         txtId.isEnabled = true
         txtId.setText("")
         txtTitle.setText("")
@@ -241,10 +241,12 @@ class TaskActivity : AppCompatActivity(),
                     if (!isEditMode)
                         TaskViewModel.saveTask(task)
                     else
-                        TaskViewModel.updateTask(task)
-
+                        util.showDialogCondition(this, getString(R.string.TextSaveQuestion)) {
+                            TaskViewModel.updateTask(task)
+                            cleanScreen()
+                            Toast.makeText(this, getString(R.string.TextSaveSuccess), Toast.LENGTH_LONG).show()
+                        }
                     cleanScreen()
-
                     Toast.makeText(this, getString(R.string.TextSaveSuccess)
                         , Toast.LENGTH_LONG).show()
                 }
@@ -259,11 +261,13 @@ class TaskActivity : AppCompatActivity(),
     }
 
     fun deleteTask(): Unit{
+
         try {
+            util.showDialogCondition(this, getString(R.string.TextDeleteQuestion)) {
             TaskViewModel.removeTask(txtId.text.toString())
             cleanScreen()
             Toast.makeText(this, getString(R.string.TextDeleteSuccess)
-                , Toast.LENGTH_LONG).show()
+                , Toast.LENGTH_LONG).show()}
         }catch (e: Exception){
             Toast.makeText(this, e.message.toString()
                 , Toast.LENGTH_LONG).show()
