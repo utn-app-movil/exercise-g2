@@ -1,5 +1,6 @@
 package cr.ac.utn.taskmanager
 
+import androidx.appcompat.app.AlertDialog
 import android.app.DatePickerDialog
 import android.os.Bundle
 import android.view.Menu
@@ -110,7 +111,15 @@ class TaskActivity : AppCompatActivity(),
                 return true
             }
             R.id.mnuDelete -> {
-                deleteTask()
+                AlertDialog.Builder(this)
+                    .setTitle("Eliminar tarea")
+                    .setMessage("¿Desea eliminar esta tarea?")
+                    .setPositiveButton("Sí") { _, _ ->
+                        deleteTask()
+                    }
+                    .setNegativeButton("No", null)
+                    .show()
+
                 return true
             }
             R.id.mnuCancel -> {
@@ -144,7 +153,7 @@ class TaskActivity : AppCompatActivity(),
     private fun resetDate(){
         val calendar = Calendar.getInstance()
         dueYear= calendar.get(Calendar.YEAR)
-        dueMonth= calendar.get(Calendar.MONTH)
+        dueMonth= calendar.get(Calendar.MONTH) + 1
         dueDay= calendar.get(Calendar.DAY_OF_MONTH)
     }
 
@@ -190,7 +199,7 @@ class TaskActivity : AppCompatActivity(),
 
     private fun cleanScreen(){
         resetDate()
-        isEditMode=true
+        isEditMode=false
         txtId.isEnabled = true
         txtId.setText("")
         txtTitle.setText("")
@@ -238,15 +247,21 @@ class TaskActivity : AppCompatActivity(),
                         selectedPriority,
                         txtObservation.text.toString().trim())
 
-                    if (!isEditMode)
+                    if (!isEditMode) {
                         TaskViewModel.saveTask(task)
-                    else
-                        TaskViewModel.updateTask(task)
+                        cleanScreen()
 
-                    cleanScreen()
+                        Toast.makeText(this, getString(R.string.TextSaveSuccess),
+                            Toast.LENGTH_LONG).show()
+                    } else {
+                        util.showDialogCondition(this, "¿Desea actualizar esta tarea?") {
+                            TaskViewModel.updateTask(task)
+                            cleanScreen()
 
-                    Toast.makeText(this, getString(R.string.TextSaveSuccess)
-                        , Toast.LENGTH_LONG).show()
+                            Toast.makeText(this, getString(R.string.TextSaveSuccess),
+                                Toast.LENGTH_LONG).show()
+                        }
+                    }
                 }
             }else{
                 Toast.makeText(this, "Datos incompletos"
