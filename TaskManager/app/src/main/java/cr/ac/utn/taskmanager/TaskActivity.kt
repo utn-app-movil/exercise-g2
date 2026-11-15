@@ -188,6 +188,7 @@ class TaskActivity : AppCompatActivity(),
         return "${if (dayOfMonth < 10) "0" else ""}$dayOfMonth/${if (monthValue < 10) "0" else ""}$monthValue/$yearValue"
     }
 
+
     private fun cleanScreen(){
         resetDate()
         isEditMode=false

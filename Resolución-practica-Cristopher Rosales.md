@@ -19,3 +19,15 @@ se modifica al cambiar en el TaskListActivity en la parte de onItemClick cambian
 5-	Cuando se guardan dos Tasks la segunda no se puede guardar porque la primera le cae encima y la borra
 ![quinta imagen](imagenes/imagen5.png)
 Para modificarlo hay que eliminar el -1 que se encuetra en TaskListAdapter.kt y ya no se duplican las task.
+
+6- En la parte de TaskMemoryManager los id de todos las funciones estan sin el "trim" por lo que no se limpiaban los espacios en blanco
+![Sexta imagen](imagenes/imagen6.png)
+
+7- En la parte de resetDay cuando se reiniciaba esta debia de quedarse reiniciada en el mes que se esta pero como se modifico antes para otras soluciones este aparese como uno menos por lo que se le agrego un +1 al dueMonth
+![Septima imagen](imagenes/imagen7.png)
+
+8- Em la parte de "showDatePickerDialog" cuando se va a mostrar lo que es la fecha otra ves por errores corregidos antes a este se le suma un mes a la hora de mostrar por lo que se le agrega un -1
+![Octava imagen](imagenes/imagen8.png)
+
+9- En el "cleanScreen" la parte de "isEditMode" esta marcado como true por lo que hay que cambiarlo a flase para que no se pueda editar al haber selecciondo la opcion de cancelar todo
+![Novena imagen](imagenes/imagen9.png)
