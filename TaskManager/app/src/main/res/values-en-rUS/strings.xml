@@ -9,6 +9,7 @@
     <string name="TextSnackbar">Undo</string>
     <string name="btnTextTask_main">Task Management</string>
     <string name="btnTextTaskList_main">Task List</string>
+    <string name="btnTextStats_main">Statistics and Summary</string>
     <string name="TextId">Id</string>
     <string name="TextTitle">Title</string>
     <string name="TextDescription">Description</string>
@@ -32,4 +33,24 @@
     <string name="TextNo">No</string>
     <string name="TextDataNoFound">The information was not found.</string>
     <string name="TextTitleDialogQuestion">Question</string>
+
+    <!-- Phase 1: Statistics -->
+    <string name="title_task_stats">Statistics and Summary</string>
+    <string name="label_total_tasks">Total Tasks Registered</string>
+    <string name="label_pending_tasks">Pending (PENDING)</string>
+    <string name="label_in_progress_tasks">In Progress (IN_PROGRESS)</string>
+    <string name="label_completed_tasks">Completed (COMPLETED)</string>
+    <string name="label_cancelled_tasks">Cancelled (CANCELLED)</string>
+    <string name="label_completion_percentage">Completion percentage:</string>
+    <string name="percentage_format">%1$d%%</string>
+    <string name="btn_back_to_main">Back to Main Menu</string>
+
+    <!-- Phase 2: Search and Filters -->
+    <string name="label_filter_status">Filter by Status:</string>
+    <string name="search_hint">Search by title, desc. or assignee…</string>
+    <string name="option_all_statuses">ALL</string>
+
+    <!-- Phase 3: Swipe to delete -->
+    <string name="msg_task_deleted">Task deleted</string>
+    <string name="action_undo">UNDO</string>
 </resources>
