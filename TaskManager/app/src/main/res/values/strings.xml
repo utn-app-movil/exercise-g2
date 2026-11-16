@@ -8,6 +8,7 @@
     <string name="TextSnackbar">Deshacer</string>
     <string name="btnTextTask_main">Gestión de Tareas</string>
     <string name="btnTextTaskList_main">Listar tareas</string>
+    <string name="btnTextStats_main">Estadísticas y Resumen</string>
     <string name="TextId">Id</string>
     <string name="TextTitle">Título de tarea</string>
     <string name="TextDescription">Descripción</string>
@@ -31,5 +32,23 @@
     <string name="TextDataNoFound">La información no existe.</string>
     <string name="TextTitleDialogQuestion">Pregunta</string>
 
+    <!-- Phase 1: Statistics -->
+    <string name="title_task_stats">Estadísticas y Resumen</string>
+    <string name="label_total_tasks">Total de Tareas Registradas</string>
+    <string name="label_pending_tasks">Pendientes (PENDING)</string>
+    <string name="label_in_progress_tasks">En Progreso (IN_PROGRESS)</string>
+    <string name="label_completed_tasks">Completadas (COMPLETED)</string>
+    <string name="label_cancelled_tasks">Canceladas (CANCELLED)</string>
+    <string name="label_completion_percentage">Porcentaje de avance:</string>
+    <string name="percentage_format">%1$d%%</string>
+    <string name="btn_back_to_main">Volver al Menú Principal</string>
 
+    <!-- Phase 2: Search and Filters -->
+    <string name="label_filter_status">Filtrar por Estado:</string>
+    <string name="search_hint">Buscar por título, desc. o asignado...</string>
+    <string name="option_all_statuses">TODAS</string>
+
+    <!-- Phase 3: Swipe to delete -->
+    <string name="msg_task_deleted">Tarea eliminada</string>
+    <string name="action_undo">DESHACER</string>
 </resources>

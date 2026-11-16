@@ -23,45 +23,67 @@ class MainActivity : AppCompatActivity() {
             insets
         }
 
-        val btnMessage1 : Button = findViewById<Button>(R.id.btnMessage1_main)
-        btnMessage1.setOnClickListener(View.OnClickListener{ view ->
-            Toast.makeText(this,
-                    getString(R.string.TextMessage1),
-                    Toast.LENGTH_LONG).show()
-        })
+        val btnMessage1: Button = findViewById(R.id.btnMessage1_main)
+        btnMessage1.setOnClickListener {
+            Toast.makeText(
+                this,
+                getString(R.string.TextMessage1),
+                Toast.LENGTH_LONG
+            ).show()
+        }
 
         val clmain = findViewById<ConstraintLayout>(R.id.main)
-        class snackbarClick: View.OnClickListener{
+        class SnackbarClick : View.OnClickListener {
             override fun onClick(p0: View?) {
-                Snackbar.make(clmain, "Cancelled action",
-                    Snackbar.LENGTH_SHORT).show()
+                Snackbar.make(
+                    clmain, "Cancelled action",
+                    Snackbar.LENGTH_SHORT
+                ).show()
             }
         }
-        val btnMessage2: Button = findViewById<Button>(R.id.btnMessage2_main)
-        btnMessage2.setOnClickListener(View.OnClickListener{ view ->
-            val mySnackbar = Snackbar.make(clmain
-                , R.string.TextMessage2, Snackbar.LENGTH_LONG)
-            mySnackbar.setAction(R.string.TextSnackbar,
-                snackbarClick())
+
+        val btnMessage2: Button = findViewById(R.id.btnMessage2_main)
+        btnMessage2.setOnClickListener {
+            val mySnackbar = Snackbar.make(
+                clmain, R.string.TextMessage2, Snackbar.LENGTH_LONG
+            )
+            mySnackbar.setAction(
+                R.string.TextSnackbar,
+                SnackbarClick()
+            )
             mySnackbar.show()
-        })
+        }
 
-        val btnOpenScreen: Button = findViewById<Button>(R.id.btnOpenScreen_main)
-        btnOpenScreen.setOnClickListener(View.OnClickListener{ view ->
-            util.openActivity(this
-                    , SecondActivity::class.java)
-        })
+        val btnOpenScreen: Button = findViewById(R.id.btnOpenScreen_main)
+        btnOpenScreen.setOnClickListener {
+            util.openActivity(
+                this,
+                SecondActivity::class.java
+            )
+        }
 
-        val btnOpenTask: Button = findViewById<Button>(R.id.btnTask_main)
-        btnOpenTask.setOnClickListener(View.OnClickListener{ view ->
-            util.openActivity(this
-                , TaskActivity::class.java)
-        })
+        val btnOpenTask: Button = findViewById(R.id.btnTask_main)
+        btnOpenTask.setOnClickListener {
+            util.openActivity(
+                this,
+                TaskActivity::class.java
+            )
+        }
 
-        val btnOpenTaskList: Button = findViewById<Button>(R.id.btnTaskList_main)
-        btnOpenTaskList.setOnClickListener(View.OnClickListener{ view ->
-            util.openActivity(this
-                , TaskListActivity::class.java)
-        })
+        val btnOpenTaskList: Button = findViewById(R.id.btnTaskList_main)
+        btnOpenTaskList.setOnClickListener {
+            util.openActivity(
+                this,
+                TaskListActivity::class.java
+            )
+        }
+
+        val btnOpenStats: Button = findViewById(R.id.btnStats_main)
+        btnOpenStats.setOnClickListener {
+            util.openActivity(
+                this,
+                TaskStatsActivity::class.java
+            )
+        }
     }
 }
