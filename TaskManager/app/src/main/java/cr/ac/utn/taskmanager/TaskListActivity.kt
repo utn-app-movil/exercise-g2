@@ -12,8 +12,10 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.snackbar.Snackbar
 import cr.ac.utn.taskmanager.domain.model.Task
 import cr.ac.utn.taskmanager.domain.model.TaskStatus
 import cr.ac.utn.taskmanager.util.EXTRA_MESSAGE_ID
@@ -45,6 +47,34 @@ class TaskListActivity : AppCompatActivity(), OnItemClickListener {
         recycler.adapter = taskAdapter
 
         setupFilterSpinner()
+
+        val itemTouchHelperCallback = object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT) {
+            override fun onMove(
+                recyclerView: RecyclerView,
+                viewHolder: RecyclerView.ViewHolder,
+                target: RecyclerView.ViewHolder
+            ): Boolean {
+                return false
+            }
+
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                val position = viewHolder.bindingAdapterPosition
+                val deletedTask = taskAdapter.getTaskAt(position)
+
+                TaskViewModel.removeTask(deletedTask.id)
+                filterTasks()
+
+                val snackbar = Snackbar.make(recycler, R.string.TextDeleteSuccess, Snackbar.LENGTH_LONG)
+                snackbar.setAction(R.string.TextSnackbar) {
+                    TaskViewModel.saveTask(deletedTask)
+                    filterTasks()
+                }
+                snackbar.show()
+            }
+        }
+
+        val itemTouchHelper = ItemTouchHelper(itemTouchHelperCallback)
+        itemTouchHelper.attachToRecyclerView(recycler)
 
         txtSearch.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}

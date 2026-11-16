@@ -33,6 +33,10 @@ class TaskListAdapter (private var tasks: List<Task>,
         tasks = newTasks
         notifyDataSetChanged()
     }
+
+    fun getTaskAt(position: Int): Task {
+        return tasks[position]
+    }
 }
 
 class CustomViewHolder(view: View): RecyclerView.ViewHolder(view)
