@@ -43,6 +43,6 @@ Al guardar una task se mantiene en modo edición,permitiendo la duplicación de 
 
 ### Error7: El buscador tomaba en cuenta los espacios vacios
 
-![octava imagen](img/di_Trim.png)
+![octava imagen](img/id_Trim.png)
 
 La función de buscar tiene en cuenta espacios en el id,se soluciona agregando trim a ambos ids
