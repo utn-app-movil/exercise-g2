@@ -27,6 +27,7 @@ import cr.ac.utn.taskmanager.util.util
 import cr.ac.utn.taskmanager.viewmodel.TaskViewModel
 import java.time.LocalDate
 import java.util.Calendar
+import androidx.appcompat.app.AlertDialog
 
 class TaskActivity : AppCompatActivity(),
             DatePickerDialog.OnDateSetListener{
@@ -88,10 +89,10 @@ class TaskActivity : AppCompatActivity(),
     override fun onDateSet(view: android.widget.DatePicker?, year: Int
                             , month: Int, dayOfMonth: Int) {
         dueDay=dayOfMonth
-        dueMonth=month
+        dueMonth=month+1
         dueYear=year
         tvDueDate.text = getDateFormatString(dayOfMonth,
-             month, year)
+             month+1, year)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -102,27 +103,54 @@ class TaskActivity : AppCompatActivity(),
         invalidateOptionsMenu()
         return true
     }
+    private fun showUpdateConfirmation() {
+        AlertDialog.Builder(this)
+            .setTitle("Confirmar cambio")
+            .setMessage("¿Está seguro de que desea actualizar esta tarea?")
+            .setPositiveButton("Actualizar") { _, _ ->
+                saveTask()
+            }
+            .setNegativeButton("Cancelar", null)
+            .show()
+    }
+    private fun showDeleteConfirmation() {
+        AlertDialog.Builder(this)
+            .setTitle("Confirmar eliminación")
+            .setMessage("¿Está seguro de que desea eliminar esta tarea?")
+            .setPositiveButton("Eliminar") { _, _ ->
+                deleteTask()
+            }
+            .setNegativeButton("Cancelar", null)
+            .show()
+    }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.mnuSave -> {
-                saveTask()
+                if (isEditMode) {
+                    showUpdateConfirmation()
+                } else {
+                    saveTask()
+                }
                 return true
             }
+
             R.id.mnuDelete -> {
-                deleteTask()
+                showDeleteConfirmation()
                 return true
             }
+
             R.id.mnuCancel -> {
                 cleanScreen()
                 return true
             }
+
             else -> return super.onOptionsItemSelected(item)
         }
     }
 
+
     private fun setupSpinners() {
-        // Adaptador para TaskStatus
         val statusAdapter = ArrayAdapter(
             this,
             android.R.layout.simple_spinner_item,
@@ -144,13 +172,13 @@ class TaskActivity : AppCompatActivity(),
     private fun resetDate(){
         val calendar = Calendar.getInstance()
         dueYear= calendar.get(Calendar.YEAR)
-        dueMonth= calendar.get(Calendar.MONTH)
+        dueMonth= calendar.get(Calendar.MONTH+1)
         dueDay= calendar.get(Calendar.DAY_OF_MONTH)
     }
 
     private fun showDatePickerDialog(){
         val datePickerDialog = DatePickerDialog(this,
-            this, dueYear, dueMonth, dueDay)
+            this, dueYear, dueMonth-1, dueDay)
         datePickerDialog.show()
     }
 
@@ -190,7 +218,7 @@ class TaskActivity : AppCompatActivity(),
 
     private fun cleanScreen(){
         resetDate()
-        isEditMode=true
+        isEditMode=false
         txtId.isEnabled = true
         txtId.setText("")
         txtTitle.setText("")
@@ -260,7 +288,8 @@ class TaskActivity : AppCompatActivity(),
 
     fun deleteTask(): Unit{
         try {
-            TaskViewModel.removeTask(txtId.text.toString())
+            TaskViewModel.removeTask(
+        txtId.text.toString())
             cleanScreen()
             Toast.makeText(this, getString(R.string.TextDeleteSuccess)
                 , Toast.LENGTH_LONG).show()
