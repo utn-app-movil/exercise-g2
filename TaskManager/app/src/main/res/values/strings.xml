@@ -25,11 +25,20 @@
     <string name="TextSaveError">Error al guardar la información.</string>
     <string name="TextDeleteError">Error al eliminar la información.</string>
     <string name="TextSaveQuestion">Desea guardar la información?</string>
+    <string name="TextActionCancelled">Acción cancelada</string>
     <string name="TextDeleteQuestion">Desea eliminar la información?</string>
     <string name="TextYes">Si</string>
     <string name="TextNo">No</string>
     <string name="TextDataNoFound">La información no existe.</string>
     <string name="TextTitleDialogQuestion">Pregunta</string>
+    <string name="btnTextStats_main">Estadísticas</string>
+    <string name="textTotalTasks">Total de tareas:</string>
+    <string name="textPendingTasks">Pendientes:</string>
+    <string name="textInProgressTasks">En progreso:</string>
+    <string name="textCompletedTasks">Completadas:</string>
+    <string name="textCancelledTasks">Canceladas:</string>
+    <string name="btnBackMain">Volver al Menú Principal</string>
+    <string name="hintSearchTask">Buscar tarea...</string>
 
 
 </resources>

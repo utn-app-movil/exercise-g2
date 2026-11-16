@@ -33,7 +33,7 @@ class MainActivity : AppCompatActivity() {
         val clmain = findViewById<ConstraintLayout>(R.id.main)
         class snackbarClick: View.OnClickListener{
             override fun onClick(p0: View?) {
-                Snackbar.make(clmain, "Cancelled action",
+                Snackbar.make(clmain, R.string.TextActionCancelled,
                     Snackbar.LENGTH_SHORT).show()
             }
         }
@@ -62,6 +62,12 @@ class MainActivity : AppCompatActivity() {
         btnOpenTaskList.setOnClickListener(View.OnClickListener{ view ->
             util.openActivity(this
                 , TaskListActivity::class.java)
+        })
+
+        val btnOpenStats: Button = findViewById<Button>(R.id.btnStats_main)
+        btnOpenStats.setOnClickListener(View.OnClickListener{ view ->
+            util.openActivity(this
+                , TaskStatsActivity::class.java)
         })
     }
 }
