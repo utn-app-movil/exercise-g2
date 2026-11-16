@@ -9,6 +9,7 @@
     <string name="TextSnackbar">Undo</string>
     <string name="btnTextTask_main">Task Management</string>
     <string name="btnTextTaskList_main">Task List</string>
+    <string name="btnTextTaskStats_main">Task Stats</string>
     <string name="TextId">Id</string>
     <string name="TextTitle">Title</string>
     <string name="TextDescription">Description</string>
@@ -32,4 +33,13 @@
     <string name="TextNo">No</string>
     <string name="TextDataNoFound">The information was not found.</string>
     <string name="TextTitleDialogQuestion">Question</string>
+    <string name="TextTotalTasks">Total registered tasks</string>
+    <string name="TextPending">Pending</string>
+    <string name="TextInProgress">In progress</string>
+    <string name="TextCompleted">Completed</string>
+    <string name="TextCancelled">Cancelled</string>
+    <string name="TextCompletedPercent">Completed percentage</string>
+    <string name="btnTextBack_Stats">Back to main menu</string>
+    <string name="TextSearch">Search</string>
+    <string name="TextAll">ALL</string>
 </resources>
