@@ -1,4 +1,3 @@
-
 package cr.ac.utn.taskmanager
 
 import android.os.Bundle
@@ -15,6 +14,8 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.ItemTouchHelper
+import com.google.android.material.snackbar.Snackbar
 import cr.ac.utn.taskmanager.domain.model.Task
 import cr.ac.utn.taskmanager.util.EXTRA_MESSAGE_ID
 import cr.ac.utn.taskmanager.util.util
@@ -38,21 +39,21 @@ class TaskListActivity : AppCompatActivity(), OnItemClickListener {
             insets
         }
 
-        // Obtener las tareas registradas
-        val tareas = TaskViewModel.getTasks()
-
-        // Configurar la lista
+        // Configurar la lista de tareas
         val recycler = findViewById<RecyclerView>(R.id.rvTasks_List)
-        val taskAdapter = TaskListAdapter(tareas, this)
+
+        val taskAdapter = TaskListAdapter(
+            TaskViewModel.getTasks(),
+            this
+        )
 
         recycler.layoutManager = LinearLayoutManager(this)
         recycler.adapter = taskAdapter
 
-        // Obtener el buscador y el Spinner
+        // Buscador y filtro por estado
         val edtBuscar = findViewById<EditText>(R.id.edtBuscar)
         val spnEstado = findViewById<Spinner>(R.id.spnEstado)
 
-        // Opciones del Spinner
         val estados = arrayOf(
             "TODAS",
             "PENDING",
@@ -73,13 +74,13 @@ class TaskListActivity : AppCompatActivity(), OnItemClickListener {
 
         spnEstado.adapter = adapterEstados
 
-        // Función para filtrar las tareas
+        // Filtrar las tareas
         fun filtrarTareas() {
 
             val texto = edtBuscar.text.toString()
             val estado = spnEstado.selectedItem.toString()
 
-            val tareasFiltradas = tareas.filter { tarea ->
+            val tareasFiltradas = TaskViewModel.getTasks().filter { tarea ->
 
                 val coincideTexto = tarea.title.contains(
                     texto,
@@ -119,7 +120,7 @@ class TaskListActivity : AppCompatActivity(), OnItemClickListener {
             }
         })
 
-        // Filtrar cuando cambia el estado
+        // Filtrar por estado
         spnEstado.onItemSelectedListener =
             object : AdapterView.OnItemSelectedListener {
 
@@ -135,6 +136,62 @@ class TaskListActivity : AppCompatActivity(), OnItemClickListener {
                 override fun onNothingSelected(parent: AdapterView<*>?) {
                 }
             }
+
+        // Fase 3: Eliminar tareas deslizando
+        val swipeCallback = object : ItemTouchHelper.SimpleCallback(
+            0,
+            ItemTouchHelper.LEFT
+        ) {
+
+            override fun onMove(
+                recyclerView: RecyclerView,
+                viewHolder: RecyclerView.ViewHolder,
+                target: RecyclerView.ViewHolder
+            ): Boolean {
+                return false
+            }
+
+            override fun onSwiped(
+                viewHolder: RecyclerView.ViewHolder,
+                direction: Int
+            ) {
+
+                // Obtener la tarea deslizada
+                val posicion = viewHolder.bindingAdapterPosition
+
+                if (posicion == RecyclerView.NO_POSITION) {
+                    filtrarTareas()
+                    return
+                }
+
+                val tarea = taskAdapter.obtenerTarea(posicion)
+
+                // Eliminar la tarea
+                TaskViewModel.removeTask(tarea.id)
+
+                // Actualizar la lista
+                filtrarTareas()
+
+                // Mostrar opción para deshacer
+                Snackbar.make(
+                    recycler,
+                    "Tarea eliminada",
+                    Snackbar.LENGTH_LONG
+                ).setAction("DESHACER") {
+
+                    // Restaurar la tarea
+                    TaskViewModel.saveTask(tarea)
+
+                    // Actualizar nuevamente la lista
+                    filtrarTareas()
+
+                }.show()
+            }
+        }
+
+        // Activar el gesto en el RecyclerView
+        val itemTouchHelper = ItemTouchHelper(swipeCallback)
+        itemTouchHelper.attachToRecyclerView(recycler)
     }
 
     override fun onItemClick(task: Task) {

@@ -42,6 +42,11 @@ class TaskListAdapter(
         tasks = nuevaLista
         notifyDataSetChanged()
     }
+
+    // Obtener una tarea según su posición
+    fun obtenerTarea(position: Int): Task {
+        return tasks[position]
+    }
 }
 
 class CustomViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -65,4 +70,6 @@ class CustomViewHolder(view: View) : RecyclerView.ViewHolder(view) {
             itemClickListener.onItemClick(task)
         }
     }
+
+
 }
