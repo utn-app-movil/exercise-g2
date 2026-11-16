@@ -40,7 +40,7 @@ class TaskActivity : AppCompatActivity(),
     private lateinit var txtObservation: EditText
     private lateinit var tvDueDate: TextView
     private var dueDay: Int=0
-    private var dueMonth: Int=1
+    private var dueMonth: Int=0
     private var dueYear: Int=0
     private var isEditMode: Boolean=false
     private lateinit var menuDelete: MenuItem
@@ -106,11 +106,21 @@ class TaskActivity : AppCompatActivity(),
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.mnuSave -> {
-                saveTask()
+                if (isEditMode){
+                    util.showDialogCondition(this,getString(R.string.TextSaveQuestion)){
+                        saveTask()
+                    }
+                }else{
+                    saveTask()
+                }
                 return true
             }
             R.id.mnuDelete -> {
-                deleteTask()
+                if (isEditMode){
+                    util.showDialogCondition(this,getString(R.string.TextDeleteQuestion)){
+                        deleteTask()
+                    }
+                }
                 return true
             }
             R.id.mnuCancel -> {
@@ -144,13 +154,13 @@ class TaskActivity : AppCompatActivity(),
     private fun resetDate(){
         val calendar = Calendar.getInstance()
         dueYear= calendar.get(Calendar.YEAR)
-        dueMonth= calendar.get(Calendar.MONTH)
+        dueMonth= calendar.get(Calendar.MONTH)+1
         dueDay= calendar.get(Calendar.DAY_OF_MONTH)
     }
 
     private fun showDatePickerDialog(){
         val datePickerDialog = DatePickerDialog(this,
-            this, dueYear, dueMonth, dueDay)
+            this, dueYear, dueMonth-1, dueDay)
         datePickerDialog.show()
     }
 
@@ -190,7 +200,7 @@ class TaskActivity : AppCompatActivity(),
 
     private fun cleanScreen(){
         resetDate()
-        isEditMode=true
+        isEditMode=false
         txtId.isEnabled = true
         txtId.setText("")
         txtTitle.setText("")
