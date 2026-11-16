@@ -231,6 +231,8 @@ class TaskActivity : AppCompatActivity(),
                     )
                     val selectedStatus = spStatus.selectedItem as TaskStatus
                     val selectedPriority = spPriority.selectedItem as TaskPriority
+                    val creationDate = if (task != null) task.creationDate
+                                       else LocalDate.now()
                     val task = Task(
                         txtId.text.toString().trim(),
                         txtTitle.text.toString().trim(),
@@ -238,7 +240,7 @@ class TaskActivity : AppCompatActivity(),
                         LocalDate.of(
                             dueDate?.year!!, dueDate?.month!!, dueDate?.dayOfMonth!!
                         ),
-                        LocalDate.now(),
+                        creationDate,
                         selectedStatus,
                         txtAssignTo.text.toString().trim(),
                         selectedPriority,

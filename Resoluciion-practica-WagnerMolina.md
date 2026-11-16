@@ -84,5 +84,11 @@ Se colocó un Breakpoint en `TaskListActivity.kt`, dentro de `onItemClick()`. De
 **Solución:** Se guardó el adapter como atributo de la clase (`taskAdapter`) y se agregó `onResume()` con `taskAdapter.notifyDataSetChanged()` para refrescar la lista cada vez que se regresa a la pantalla.
 
 ![Evidencia](imgEvidencia/Solucion8.png)
+
+
+**Error 9: Al editar una tarea se pierde la fecha de creación**
+
+Se colocó un Breakpoint en `TaskActivity.kt`, dentro de `saveTask()`. Al editar una tarea creada el `2026-11-10` e inspeccionar las variables, el depurador mostró que la tarea guardada tenía `creationDate=2026-11-10` (`TaskViewModel.getTaskById("1")?.creationDate`), mientras que la variable `task` que se iba a actualizar tenía `creationDate=2026-11-16`, porque el objeto `Task` siempre se creaba con `LocalDate.now()` y se reemplazaba la fecha original por la del día de la edición.
+
  
  !Una Aclaracion Puse 8 errores en el readme pero el de las fechas cuenta por 3 Entonces en total fueron 5 errores encontrados pero uno por buena practuca puso los 8 lo cual no es lo correcto!

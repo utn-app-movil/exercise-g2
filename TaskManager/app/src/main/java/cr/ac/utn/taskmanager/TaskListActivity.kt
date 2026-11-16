@@ -10,10 +10,13 @@ import android.widget.EditText
 import android.widget.Spinner
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.snackbar.Snackbar
 import cr.ac.utn.taskmanager.data.memory.TaskMemoryManager
 import cr.ac.utn.taskmanager.domain.model.Task
 import cr.ac.utn.taskmanager.domain.model.TaskStatus
@@ -48,6 +51,8 @@ class TaskListActivity : AppCompatActivity(), OnItemClickListener,
         val layoutManager = LinearLayoutManager(applicationContext)
         recycler.layoutManager = layoutManager
         recycler.adapter = taskAdapter
+
+        setupSwipe(recycler)
 
         txtSearch.addTextChangedListener(this)
         spStatus.onItemSelectedListener = this
@@ -101,5 +106,38 @@ class TaskListActivity : AppCompatActivity(), OnItemClickListener,
                      else TaskStatus.valueOf(selectedStatus)
 
         taskAdapter.updateTasks(TaskViewModel.filterTasks(searchText, status))
+    }
+
+    private fun setupSwipe(recycler: RecyclerView){
+        class swipeCallback: ItemTouchHelper.SimpleCallback(0,
+            ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT){
+            override fun onMove(recyclerView: RecyclerView,
+                                viewHolder: RecyclerView.ViewHolder,
+                                target: RecyclerView.ViewHolder): Boolean {
+                return false
+            }
+
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                val task = taskAdapter.getTask(viewHolder.bindingAdapterPosition)
+                deleteTask(task)
+            }
+        }
+        val itemTouchHelper = ItemTouchHelper(swipeCallback())
+        itemTouchHelper.attachToRecyclerView(recycler)
+    }
+
+    private fun deleteTask(task: Task){
+        TaskViewModel.removeTask(task.id)
+        filterTasks()
+
+        val clmain = findViewById<ConstraintLayout>(R.id.main)
+        val mySnackbar = Snackbar.make(clmain
+            , R.string.TextDeleteSuccess, Snackbar.LENGTH_LONG)
+        mySnackbar.setAction(R.string.TextSnackbar,
+            View.OnClickListener{ view ->
+                TaskViewModel.saveTask(task)
+                filterTasks()
+            })
+        mySnackbar.show()
     }
 }
