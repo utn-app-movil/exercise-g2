@@ -30,6 +30,32 @@
     <string name="TextNo">No</string>
     <string name="TextDataNoFound">La información no existe.</string>
     <string name="TextTitleDialogQuestion">Pregunta</string>
+    <string name="stats_title">Estadísticas de Tareas</string>
+    <string name="stats_total_label">Total de Tareas Registradas</string>
+    <string name="stats_pending">Pendientes</string>
+    <string name="stats_in_progress">En Progreso</string>
+    <string name="stats_completed">Completadas</string>
+    <string name="stats_cancelled">Canceladas</string>
+    <string name="stats_percentage_label">Porcentaje de tareas completadas</string>
+    <string name="stats_back_main">Volver al Menú Principal</string>
+    <string name="stats_menu_button">Estadísticas de Tareas</string>
+    <string name="stats_number_default">0</string>
+    <string name="stats_percentage_format">%1$d%%</string>
+    <string name="task_list_title">Lista de Tareas</string>
+    <string name="task_search_hint">Buscar por ID, título o descripción</string>
+    <string name="task_filter_label">Filtrar por estado</string>
+    <string name="task_filter_all">Todas</string>
+    <string name="task_filter_pending">Pendientes</string>
+    <string name="task_filter_in_progress">En Progreso</string>
+    <string name="task_filter_completed">Completadas</string>
+    <string name="task_filter_cancelled">Canceladas</string>
+    <string name="task_no_results">No se encontraron tareas</string>
+    <string name="task_swipe_deleted">Tarea eliminada</string>
+    <string name="task_swipe_undo">DESHACER</string>
+    <string name="task_swipe_restored">Tarea restaurada correctamente</string>
+    <string name="task_swipe_error">Ocurrió un error al procesar la tarea</string>
+
+
 
 
 </resources>
