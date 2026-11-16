@@ -27,3 +27,22 @@ es debido al -1 luego de position,para solucionarlo se elimina el -1
 ![quinta imagen](img/idNotFound.png)
 
 debido a que utilizaba el task.tittle en vez del id al buscar no llegaba a nada,se soluciona cambiando el task.tittle por task.id
+
+### Error5: desface del calendario
+
+
+![sexta imagen](img/DesfaceMes.png)
+
+al buscar un task por la id se le suma 1 al mes, para solucionarlo se resta 1 al mes y ahora lo muestra correctamente
+
+### Error6: Modo edición no cambiaba
+
+![septima imagen](img/Clearscreen.png)
+
+Al guardar una task se mantiene en modo edición,permitiendo la duplicación de id,se soluciona cambiando a false el iseditmode
+
+### Error7: El buscador tomaba en cuenta los espacios vacios
+
+![octava imagen](img/di_Trim.png)
+
+La función de buscar tiene en cuenta espacios en el id,se soluciona agregando trim a ambos ids
