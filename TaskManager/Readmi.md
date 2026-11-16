@@ -37,3 +37,75 @@ Antes
 Solucion
   ![img](img/3.1.png)
 
+
+El error 5 se encontraba en la función cleanScreen () del archivo TaskActivity.kt, donde la variable isEditMode estaba en true. Esto provocaba que después de crear una tarea la aplicación considerara que estaba en modo edición. 
+
+Solucion:  Se cambió el valor la variable a isEditMode = false, permitiendo que la aplicación se restablezca correctamente en el modo de creación y permita distinguir entre registrar una tarea nueva y modificar una existente.
+
+![img](img/5.png)
+
+
+
+
+
+
+
+
+
+
+	
+
+
+
+
+
+
+Error 6: 
+En el archivo TaskViewModel.kt el ViewModel no valida antes de usar la función removeTask llama directamente al repositorio sin comprobar nada. 
+Esto permite eliminar una tarea que no existe sin que la app muestre ningún error.
+Ejemplo crear una tarea id=”1” y guardarla, volver a buscar esa tarea, pero con un espacio id=” 1” y te devuelve esa tarea y se puede borrar, pero si volvemos a buscar ese mismo id la tarea sigue estando ahí, se borra algo que no existe.
+
+Solución: Agregar validaciones y que lancé una excepción con un mensaje claro cuando la operación no sea válida o no exista esa tarea.
+
+
+![img](img/6.png)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Error 7:
+El archivo TaskMemoryManager.kt las funciones deleteTask y getById comparaban los ids con it.id == id por lo cual si el id tenía un espacio al inicio o al final (" 1"), no coincidía con el id guardado ("1"), así que la tarea no se encuentra ni se elimina.
+Solución:  Comparar los ids después de aplicar trim() a ambos lados.
+
+![img](img/7.png)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
