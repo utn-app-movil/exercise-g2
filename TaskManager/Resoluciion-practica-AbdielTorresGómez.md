@@ -24,7 +24,7 @@ Se colocó un Breakpoint en `TaskActivity.kt`, dentro del método `onDateSet()`.
 
 ![Evidencia](imgEvidencia/imgError2.1.png)
 
-**Solución:** Se agregó `month + 1` en la llamada a `getDateFormatS`**`t`**`ring()` para mostrar correctamente la fecha.
+**Solución:** Se agregó `+1` a `month` al asignar el valor de `dueMonth` y se utilizó esta variable en `getDateFormatString()` para mostrar correctamente el mes seleccionado.
 
 ![Evidencia](imgEvidencia/Solucion2.1.png)
 
@@ -34,9 +34,19 @@ Se colocó un Breakpoint en `showDatePickerDialog()` de `TaskActivity.kt`. Al de
 
 ![Evidencia](imgEvidencia/imgError2.2.png)
 
-**Solución:** Se agregó `- 1` a `task.dueDate.monthValue` en el método `searchTask()`.
+**Solución:** Se agregó `- 1` a `dueMonth` en el método `showDatePickerDialog()` para que `DatePickerDialog` muestre correctamente el mes correspondiente a la fecha de la tarea.
 
 ![Evidencia](imgEvidencia/Solucion2.2.png)
+
+**Error 2.3: Mes incorrecto al restablecer la fecha**
+
+Se colocó un Breakpoint en `TaskActivity.kt`, dentro del método `resetDate()`. Al depurar, se identificó que `Calendar.MONTH` devolvía el valor `10` para noviembre, provocando que `dueMonth` almacenara un mes menos del correspondiente.
+
+![Evidencia](imgEvidencia/imgError2.3.png)
+
+**Solución:** Se agregó `+1` a `Calendar.MONTH` en el método `resetDate()` para almacenar correctamente el mes actual.
+
+![Evidencia](imgEvidencia/Solucion2.3.png)
 
 **Error 3: Tarea no encontrada al seleccionarla**
 
@@ -69,76 +79,35 @@ Se colocó un Breakpoint en el método `onBindViewHolder()` de `TaskListAdapter.
 
 ![Evidencia](imgEvidencia/Solucion5.png)
 
-**Error 6: El ViewModel permite guardar tareas con el mismo ID**
+**Error 6: Falta de llamada al método de refresco del adaptador**
 
-Se detuvo la aplicación con un Breakpoint en el método `onItemClick()` de `TaskListActivity.kt`. Desde **Evaluate Expression** se probó directamente `TaskViewModel.saveTask()`. El problema se encuentra en `TaskViewModel.kt`: el método ejecuta `repository.addTask(task)` sin comprobar primero si el ID está registrado.
+Se colocó un Breakpoint en `TaskListActivity.kt`, en la asignación `recycler.adapter = taskAdapter`. Mediante Debug, se comprobó que `taskAdapter.itemCount` contenía una tarea, pero no se llamaba explícitamente al método `notifyDataSetChanged()` después de asignar el adaptador.
 
-**Comprobación mediante Debug:**
+![Evidencia](imgEvidencia/imgError6.png)
 
-Primero se verificó que no existieran registros con el ID `DBG006`. El resultado fue `0`.
-
-![Evidencia](imgEvidencia/imgError6_Conteo0.png)
-
-Se ejecutó `TaskViewModel.saveTask(task.copy(id = "DBG006", title = "Prueba Debug"))`. Después, la consulta mostró `1` registro.
-
-![Evidencia](imgEvidencia/imgError6_Guardado1.png)
-
-![Evidencia](imgEvidencia/imgError6_Conteo1.png)
-
-Luego se ejecutó nuevamente `TaskViewModel.saveTask()`, con el mismo ID `DBG006` y el título `Prueba Duplicada`. La consulta devolvió `2`, demostrando que el ViewModel permitió almacenar dos tareas con el mismo identificador.
-
-![Evidencia](imgEvidencia/imgError6_Guardado2.png)
-
-![Evidencia](imgEvidencia/imgError6_Conteo2.png)
-
-**Solución:** Se modificó el método `saveTask()` de `TaskViewModel.kt` para verificar si el ID ya existe mediante `repository.getById()`. Si la tarea está registrada, se lanza una excepción para evitar que se guarden tareas duplicadas.
+**Solución:** Se agregó `taskAdapter.notifyDataSetChanged()` después de asignar el adaptador al `RecyclerView`. Mediante Debug se verificó la ejecución de esta instrucción y se comprobó que la lista mostraba correctamente la tarea registrada.
 
 ![Evidencia](imgEvidencia/Solucion6.png)
 
-**Error 7: Se crea una tarea al intentar actualizar un ID inexistente**
+**Error 7: La búsqueda de tareas falla cuando el ID contiene espacios**
 
-Se detuvo la aplicación con un Breakpoint en el método `onItemClick()` de `TaskListActivity.kt`. Desde **Evaluate Expression** se probó directamente `TaskViewModel.updateTask()`.El problema se encuentra en `TaskViewModel.kt`: el método ejecuta `repository.updateTask(task)` sin comprobar primero si el ID existe.
+Se colocó un Breakpoint en `TaskListActivity.kt`, dentro de `onItemClick()`. Mediante **Evaluate Expression** se comprobó que `TaskViewModel.getTaskById("T777")` encontraba la tarea registrada.
 
-**Comprobación mediante Debug:**
+![Evidencia](imgEvidencia/imgError7_IDCorrecto.png)
 
-Primero se verificó que no existieran registros con el ID `DBG007`. El resultado fue `0`.
+Al buscar la misma tarea con espacios, utilizando `TaskViewModel.getTaskById(" T777 ")`, el resultado fue `null`. Se identificó que `TaskMemoryManager.kt` comparaba los identificadores sin eliminar los espacios al inicio y al final.
 
-![Evidencia:](imgEvidencia/imgError7_Conteo0.png)
+![Evidencia](imgEvidencia/imgError7_IDConEspacios.png)
 
-Luego se ejecutó `TaskViewModel.updateTask(task.copy(id = "DBG007", title = "Prueba Actualizacion"))`, intentando actualizar una tarea inexistente.
+**Solución:** Se agregó `.trim()` a ambos identificadores en las comparaciones de `getById()` y `deleteTask()`.
 
-![Evidencia](imgEvidencia/imgError7_Actualizacion.png)
+![Evidencia](imgEvidencia/Solucion7_Codigo.png)
 
-Al repetir la consulta, el resultado fue `1`, demostrando que el ViewModel creó una tarea nueva cuando solamente debía actualizar una existente.
-
-![Evidencia](imgEvidencia/imgError7_Conteo1.png)
-
-**Solución:** Se modificó el método `updateTask()` de `TaskViewModel.kt` para verificar si la tarea existe mediante `repository.getById()`. Si no se encuentra el ID, se lanza una excepción para impedir que se cree una tarea nueva durante la actualización.
+Se ejecutó nuevamente la aplicación mediante Debug y se comprobó que `TaskViewModel.getTaskById(" T777 ")` ahora encontraba correctamente la tarea registrada.
 
 ![Evidencia](imgEvidencia/Solucion7.png)
 
-**Error 8: El ViewModel permite eliminar una tarea inexistente sin informar el error**
-
-Se detuvo la aplicación con un Breakpoint en el método `onItemClick()` de `TaskListActivity.kt`. Desde **Evaluate Expression** se probó directamente `TaskViewModel.removeTask()`. El problema se encuentra en `TaskViewModel.kt`: el método ejecuta `repository.deleteTask(id)` sin comprobar primero si el ID está registrado.
-
-**Comprobación mediante Debug:**
-
-Primero se verificó que no existieran registros con el ID `DBG008`. El resultado fue `0`.
-
-![Evidencia](imgEvidencia/imgError8_Conteo0.png)
-
-Luego se ejecutó `TaskViewModel.removeTask("DBG008")` desde Evaluate Expression. El resultado fue `undefined`, sin que se mostrara ninguna excepción, a pesar de que la tarea no existía.
-
-![Evidencia](imgEvidencia/imgError8_Eliminacion.png)
-
-Al repetir la consulta, el resultado siguió siendo `0`, demostrando que no había ninguna tarea que eliminar y que el método terminó sin informar el problema.
-
-![Evidencia](imgEvidencia/imgError8_ConteoFinal.png)
-
-**Solución:** Se modificó el método `removeTask()` de `TaskViewModel.kt` para verificar mediante `repository.getById()` si la tarea existe antes de eliminarla. Si no se encuentra el ID, se lanza una excepción para impedir que la eliminación termine como si fuera exitosa.
-
-![Evidencia](imgEvidencia/Solucion8.png)
-
+**Error 8: El profesor mencionó en clases que se podían dejar los errores hasta el número 7**
 
 
 

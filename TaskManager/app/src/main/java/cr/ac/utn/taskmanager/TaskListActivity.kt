@@ -44,6 +44,7 @@ class TaskListActivity : AppCompatActivity(), OnItemClickListener {
         val layoutManager = LinearLayoutManager(applicationContext)
         recycler.layoutManager = layoutManager
         recycler.adapter = taskAdapter
+        taskAdapter.notifyDataSetChanged()
 
         val statusAdapter = ArrayAdapter.createFromResource(this,
             R.array.TaskStatusFilter, android.R.layout.simple_spinner_item)
@@ -105,7 +106,6 @@ class TaskListActivity : AppCompatActivity(), OnItemClickListener {
         if (::taskAdapter.isInitialized)
             filterTasks()
     }
-
     private fun filterTasks(){
         val status = if (spStatus.selectedItemPosition <= 0) null
             else TaskStatus.entries[spStatus.selectedItemPosition - 1]
