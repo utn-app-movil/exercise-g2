@@ -32,4 +32,21 @@
     <string name="TextTitleDialogQuestion">Pregunta</string>
 
 
+    <string name="btnTextTaskStats_main">Estadísticas</string>
+    <string name="TextStatsTitle">Estadísticas de tareas</string>
+    <string name="TextTotalTasks">Total de tareas: %1$d</string>
+    <string name="TextPendingTasks">Pendientes: %1$d</string>
+    <string name="TextProgressTasks">En progreso: %1$d</string>
+    <string name="TextCompletedTasks">Completadas: %1$d</string>
+    <string name="TextCancelledTasks">Canceladas: %1$d</string>
+    <string name="TextCompletedPercentage">Completadas: %1$d%%</string>
+    <string name="TextBackToMain">Volver al menú principal</string>
+    <string name="TextSearchTasks">Buscar tareas</string>
+    <string-array name="TaskStatusFilter">
+        <item>TODAS</item>
+        <item>PENDING</item>
+        <item>IN_PROGRESS</item>
+        <item>COMPLETED</item>
+        <item>CANCELLED</item>
+    </string-array>
 </resources>

@@ -12,7 +12,7 @@ import androidx.core.view.WindowInsetsCompat
 import com.google.android.material.snackbar.Snackbar
 import cr.ac.utn.taskmanager.util.util
 
-class MainActivity : AppCompatActivity() {
+class  MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -62,6 +62,12 @@ class MainActivity : AppCompatActivity() {
         btnOpenTaskList.setOnClickListener(View.OnClickListener{ view ->
             util.openActivity(this
                 , TaskListActivity::class.java)
+        })
+
+        val btnOpenTaskStats: Button = findViewById<Button>(R.id.btnTaskStats_main)
+        btnOpenTaskStats.setOnClickListener(View.OnClickListener{ view ->
+            util.openActivity(this
+                , TaskStatsActivity::class.java)
         })
     }
 }
